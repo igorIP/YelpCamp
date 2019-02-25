@@ -16,11 +16,15 @@ router.get("/", function (req, res) {
 });
 
 //CREATE ROUTE - adds new camps to DB
-router.post("/", function (req, res) {
+router.post("/", isLoggedIn, function (req, res) {
     var name = req.body.name;
     var image = req.body.image;
     var description = req.body.description;
-    var newCampgrounds = { name: name, image: image, description: description };
+    var author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newCampgrounds = { name: name, image: image, description: description,author:author };
     Campground.create(newCampgrounds, function (err, newlyCampgrounds) {
         if (err) {
             console.log(err);
@@ -31,7 +35,7 @@ router.post("/", function (req, res) {
 });
 
 //NEW ROUTE - display form to add new camp to DB
-router.get("/new", function (req, res) {
+router.get("/new", isLoggedIn, function (req, res) {
     res.render("campgrounds/new");
 });
 
