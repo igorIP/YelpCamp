@@ -11,7 +11,9 @@ var express = require("express"),
     LocalStrategy = require('passport-local'),
     User = require("./models/user"),
     passportLocalMongoose = require('passport-local-mongoose'),
-    seedDB = require("./seeds");
+    methodOverride = require("method-override"),
+    expressSanitizer = require("express-sanitizer");
+//    seedDB = require("./seeds");
 
 var commentRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
@@ -23,7 +25,9 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-seedDB();
+//seedDB();
+app.use(expressSanitizer());
+app.use(methodOverride("_method"));
 
 //Pasport Configuration
 
