@@ -48,9 +48,10 @@ app.use(function (req, res, next) {
 });
 
 //requiring routes
-app.use("/",indexRoutes);
+app.use("/", indexRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
+
 
 app.listen(3000, function () {
     console.log("App Server STARTED");
